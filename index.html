@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Lookup</title>
+</head>
+<body>
+    <h1>Truecaller Number Lookup</h1>
+    <form id="lookup-form">
+        <input type="text" id="phone" placeholder="Enter phone number" required>
+        <button type="submit">Lookup</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('lookup-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const phone = document.getElementById('phone').value;
+            const response = await fetch('/lookup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ phone })
+            });
+
+            const result = await response.json();
+            document.getElementById('result').textContent = JSON.stringify(result);
+        });
+    </script>
+</body>
+</html>
